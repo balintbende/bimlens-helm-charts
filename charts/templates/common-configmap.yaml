@@ -6,6 +6,6 @@ data:
 
   RELEASE: "bimlens-{{ .Release.Namespace }}"
 
-  HOST: {{ .Values.host.cloud }}
-  CDN_HOST: {{ .Values.host.cdn }}
-  API_HOST: {{ .Values.host.api }}
+  HOST: {{ .Values.host.cloud | quote }}
+  CDN_HOST: {{ .Values.host.cdn | quote }}
+  API_HOST: {{ .Values.host.api | quote }}
