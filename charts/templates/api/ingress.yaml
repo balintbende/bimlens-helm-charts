@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.api.serviceName }}-ingress
+spec:
+  ingressClassName: "nginx"
+  tls:
+    - hosts:
+      - {{ .Values.api.host }}
+      secretName: {{ .Values.api.host }}-tls
+  rules:
+  - host: {{ .Values.api.host }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.api.serviceName }}
+            port:
+              number: 80
