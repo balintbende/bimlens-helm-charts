@@ -21,7 +21,6 @@ spec:
         app.kubernetes.io/name: {{ .Values.api.serviceName }}
         app.kubernetes.io/instance: {{ .Values.api.serviceName }}
     spec:
-      serviceAccountName: {{ include "bimlens.serviceAccountName" . }}
       nodeSelector:
         node-group-profile: {{ .Values.api.nodeGroupProfile }}
       imagePullSecrets:
