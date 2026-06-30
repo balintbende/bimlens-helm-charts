@@ -5,6 +5,8 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ .Values.api.serviceName }}
     helm.sh/chart: {{ include "bimlens.chart" . }}
+    app.kubernetes.io/instance: {{ .Values.api.serviceName }}
+    app.kubernetes.io/managed-by: {{ .Values.api.serviceName }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.api.replicas }}
