@@ -8,16 +8,13 @@ metadata:
     app.kubernetes.io/instance: {{ .Values.api.serviceName }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  # Attach to the shared, platform-managed Gateway (TLS, if added, lives on the Gateway).
   parentRefs:
-    - name: {{ .Values.api.gateway.name }}
-      namespace: {{ .Values.api.gateway.namespace }}
+    - name: gateway
+      namespace: envoy-gateway-system
   {{- with .Values.api.host }}
   hostnames:
     - {{ . | quote }}
   {{- end }}
-  # Generic catch-all: route every path for this host to the api Service,
-  # exactly like the previous Ingress (path: / , Prefix).
   rules:
     - matches:
         - path:
@@ -25,5 +22,4 @@ spec:
             value: /
       backendRefs:
         - name: {{ .Values.api.serviceName }}
-          # Must match the Service's port (service.yaml uses .Values.api.port).
           port: {{ .Values.api.port }}
